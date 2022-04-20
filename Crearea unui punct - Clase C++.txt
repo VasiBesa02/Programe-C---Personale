@@ -1,0 +1,180 @@
+// Lab7_Besa_Vasile_SeriaA
+/*Creati un program C/C++ care să permită obtinerea unui nou punct, avand coordonatele 
+obtinute prin adunarea coordonatelor a două astfel de puncte. Numele noului punct va fi 
+rezultat prin concatenarea numelor celor două puncte. Adaugati si testati o metoda care 
+calculeaza distanta de la un punct la origine. Modificați clasa astfel încât sa eliminați metoda 
+afis() folosind in schimb metode accesor adecvate. Eliminați de asemenea atributul 
+lungime_sir modificând adecvat metodele clasei. Adaugati si un move constructor. Testati 
+utilizand si functii specifice sirurilor de caractere din VC++1y/2z (strcpy_s( ) si strcat_s( )).*/
+
+*/
+
+//CPunctText.h
+/* #include <iostream>
+#include <string.h>
+#include <cmath>
+
+using namespace std;
+
+const int dim_sir = 21;//+1 pt. \0
+
+class CPunctText {
+        int x;
+        int y;
+
+        char* sNume;
+        int* x_cc;
+public:
+
+        //constructor explicit vid
+        CPunctText();
+        //constructor cu parametri
+        CPunctText(int ix, int iy, const char* sText = "Punct");
+        //constructor de copiere
+        CPunctText(const CPunctText& pct);
+        ~CPunctText();
+        /*void afis() {
+                cout << "\nObiectul are x= " << x;
+                cout << "\nObiectul are y= " << y;
+                cout << "\nObiectul are sirul = " << sNume;
+        }//afis
+        
+        void setX(int xi)
+        {
+                x = xi;
+        }
+
+        int getX()
+        {
+                return x;
+        }
+        void setY(int yj)
+        {
+                y = yj;
+        }
+
+        int getY()
+        {
+                return y;
+        }
+        void setSNume(char* s) {
+                strcpy(sNume, s);
+        }
+
+        char* getSNume()
+        {
+                return sNume;
+        }
+        void Adunare(CPunctText b)
+        {
+
+                x += b.x;
+                y += b.y;
+
+
+        }
+        float DistO(int xi, int yj)
+        {
+                x = xi;
+                y = yj;
+                float dist = 0;
+                dist = sqrt(x * x + y * y);
+                return dist;
+
+        }
+
+
+        void AdunareNume(char* sir) {
+                strcat(sNume, sir);
+        }
+        
+
+        // Nu creeaza o copie a obiectului, doar face pointerul din obiectul curent sa indice spre
+//resursele unui alt obiect
+        CPunctText(CPunctText&& obj) { // Constructor Move
+                cout << "\nConstructor Move\n";
+                x_cc = obj.x_cc; //am folosit copy constructor
+                obj.x_cc = nullptr;
+        }
+};
+CPunctText::CPunctText() {
+        cout << "\n constructor explicit vid";
+        x = y = 0;
+        //lungime_sir = dim_sir;
+        sNume = new (std::nothrow) char[dim_sir];
+        strcpy(sNume, "Veronica");
+}
+CPunctText::CPunctText(int ix, int iy, const char* sText) {
+        cout << "\n constructor cu parametri";
+        //lungime_sir = strlen(sText) + 1;// pentru |0
+        sNume = new (std::nothrow) char[dim_sir];
+        x = ix;
+        y = iy;
+        strcpy(sNume, sText);
+}
+CPunctText::CPunctText(const CPunctText& pct) {
+        //cout << "\n constructor de copiere";
+        sNume = new (std::nothrow) char[dim_sir];
+        x = pct.x;
+        y = pct.y;
+        //lungime_sir = pct.lungime_sir;
+        strcpy(sNume, pct.sNume);
+}
+
+CPunctText::~CPunctText() {
+        cout << "\n destructor";
+        delete[] sNume;
+}
+
+
+
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+#include "CPunctText.h"
+const int sdim = 20;
+
+int main() {
+        CPunctText cpt1(1, 2, "Punct1");//apel constructor cu parametri
+        CPunctText cpt2(cpt1); //apel constructor de copiere
+        CPunctText cpt3 = cpt2; //apel constructor de copiere
+        CPunctText cpt4(4, 5); //apel constructor cu parametri ultimul fix
+        //adaugare
+        char* name1 = new char[sdim], * name2 = new char[sdim]; 
+        CPunctText ob1, ob2, ob3;
+        int x1, x2, y1, y2;
+        cout << "\nScrieti coordonatele punctului 1: ";
+        cout << "\nx1= "; 
+        cin >> x1;
+        ob1.setX(x1);                               //am citit coordonatele punctului 1
+        cout << "\ny1= ";
+        cin >> y1;
+        ob1.setY(y1);
+        cout << "\nDati numele primului punct: "; cin >> name1;
+        ob1.setSNume(name1);
+
+        cout << "\nCoordonatele punctului 1 sunt: x1= " << ob1.getX() << " si y1= " << ob1.getY() << endl; //am afisat coordonatele punctului 1
+        cout << "\nNumele primului punct este: " << ob1.getSNume() << endl; //am afisat numele punctului 1
+        cout << "\nx2= ";
+        cin >> x2;
+        ob2.setX(x2);                        //am citit coordonatele punctului 2
+        cout << "\ny2= ";
+        cin >> y2;
+        ob2.setY(y2);
+        cout << "\nDati numele celui de-al doilea punct: "; cin >> name2;
+        ob2.setSNume(name2);
+        cout << "\nCoordonatele punctului 2 sunt: x2= " << ob2.getX() << " si y2= " << ob2.getY() << endl; //am afisat coordonatele punctului 1
+        cout << "\nNumele celui de-al doilea punct este: " << ob2.getSNume() << endl; //am afisat numele punctului 2
+        cout << "\nDistanta de la punctul 1 la origine este: " << ob1.DistO(x1, y1) << endl; //am afisat distanta de la punctul 1 la origine
+        cout << "\nDistanta de la punctul 2 la origine este: " << ob2.DistO(x2, y2) << endl; //am afisat distanta de la punctul 1 la origine
+        ob1.Adunare(ob2); 
+        cout << "\nCoordonatele punctului 3 sunt: x3= " << ob1.getX() << " si y2= " << ob1.getY() << endl; //am afisat coordonatele punctului 3
+        ob1.AdunareNume(name2);
+        cout << "\nNumele punctului 3 este: " << ob1.getSNume() << endl; //am afisat numele punctului 3
+        
+
+        
+        
+}

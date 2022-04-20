@@ -1,0 +1,68 @@
+// Lab4 _Besa_Vasile_SeriaA
+/*Să se scrie un program C/C++, care folosind o structură numita Student, avand
+campurile {nume, prenume, ţara de origine, grupa, anul naşterii}, să determine
+numărul de studenţi străini din grupă (grupa de MAX studenti) şi să afişeze toate
+datele acestora. Datele pentru studenţii din grupa se citesc de la intrarea standard,
+până la întâlnirea numelui AAA.*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#define MAX 40
+
+struct Student {
+        char nume[15];
+        char prenume[15];
+        char tara[25];
+        int grupa;
+        int an;
+};
+void afisDatePers(Student* p, int);
+
+int main()
+{
+        struct Student s[MAX];
+        int nr, i = 0, cnt = 0;
+        printf("\nDatele studentilor: ");
+        nr= 0;
+        do {
+                printf("\nNume student: ");
+                scanf("%s", s[nr].nume);
+                if (strcmp(s[nr].nume, "AAA") == 0) break;
+                
+                else {
+                        printf("\nPrenume student: ");
+                        scanf("%s", s[nr].prenume);
+                        printf("\nTara de provenienta: ");
+                        scanf("%s", s[nr].tara);
+                        printf("\nGrupa: ");
+                        scanf("%d", &s[nr].grupa);
+                        printf("\nAnul nasterii: ");
+                        scanf("%d", &s[nr].an);
+                        nr++;
+                }
+        } while (strcmp(s[nr].nume, "AAA") != 0);
+        for (i = 0; i < nr; i++)
+        {
+                if (strcmp(s[i].tara, "Romania") != 0) cnt++;
+                
+        }
+        printf("\nDatele studentilor straini sunt: ");
+        afisDatePers(s, nr);
+        printf("\nStudentii straini sunt in numar de %d", cnt);
+        
+        return 0;
+}
+void afisDatePers(Student* p, int nr)
+{
+        int i;
+        for (i = 0; i < nr; i++)
+        {
+                printf("\n Numele:%s", (p + i)->nume);
+                printf("\n Prenumele: %s", p->prenume);
+                printf("\n Tara de provenienta: %s", p->tara);
+                printf("\n Grupa: %d", p->grupa);
+                printf("\n Anul nasterii: %d", p->an);
+
+        }
+
+}

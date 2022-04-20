@@ -1,0 +1,140 @@
+// Lab 6_Besa_Vasile_SeriaA
+/*Cititi de la tastatura m elemente de tip intreg intr-un tablou unidimensional si o valoare intreaga n<m. Impartiti
+tabloul citit in doua sub-tablori astfel:
+a) primul subtablou va contine primele n elemente din tabloul initial
+b) al doilea subtablou va contine restul elementelor din tablul initial.
+Sa se realizeze urmatoarele operatii:
+ 1. sa se ordoneze crescator cele doua subtablouri
+ 2. sa se sorteze tabloul initial, prin interclasarea celor doua subtablori ordonate. (merge-sort)*/
+
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void sortare_tab1(int* t1, int n); //prototip de functie pentru sortarea elementelor din primul tablou
+void sortare_tab2(int* t2, int k); //prototip de functie pentru sortarea elementelor din al doilea tablou
+void interclasare(int* t1, int* t2, int n, int k); //prototip de functie pentru interclasarea elementelor din cele doua subtablouri
+
+#define MAX 30
+
+int main()
+{
+        int n, m,tab[MAX],i,t1[MAX],t2[MAX],k=0,j;
+        cout << "\nIntroduceti numarul de elemente: ";
+        cin >> m; //am citit nr de elemente al sirului
+        cout << "\nIntroduceti elementele sirului: ";
+        for(i=0;i<m;i++)
+        cin >> tab[i]; //am citit elementele sirului
+        cout << "\nIntroduceti n: ";
+        cin >> n; //am citit n
+        for (i = 0; i < n; i++)
+                t1[i] = tab[i]; //primul subtablou
+        for (i = n ; i < m; i++)
+        {
+                t2[k] = tab[i]; //al doilea subtablou
+                k++;
+        }
+        cout << "\nPrimul subtablou: " << endl;
+        for (i = 0; i < n; i++)
+                cout << t1[i] << " "; //am afisat primul subtablou
+        cout << endl;
+        cout << "\nAl doilea subtablou: " << endl;
+        for (i = 0; i < k; i++)
+                cout << t2[i] << " "; //am afisat al doilea subtablou
+        cout << endl;
+        cout << "\nPrimul tablou sortat: ";
+        sortare_tab1(t1, n); //am afisat primul subtablou sortat
+
+        cout << "\nAl doilea tablou sortat: ";
+        sortare_tab2(t2, k); //am afisat al doilea subtablou sortat
+
+        interclasare(t1, t2, n, k); //am afisat tabloul format prin interclasare
+        
+                
+        return 0;
+}
+
+void sortare_tab1(int* t1, int n) //functie pentru sortarea elementelor din primul tablou
+{
+        int i,j;
+        for (i = 0; i < n - 1; i++)
+                for (j = i + 1; j < n; j++)
+                        if (t1[j] < t1[i])
+                        {
+                                int aux = t1[j]; //am sortat primul subtablou
+                                t1[j] = t1[i];
+                                t1[i] = aux;
+                        }
+        for (i = 0; i < n; i++)
+                cout << t1[i] << " "; //am afisat primul subtablou
+        cout << endl;
+
+
+}
+
+void sortare_tab2(int* t2, int k) //functie pentru sortarea elementelor din al doilea tablou
+{
+        int i, j;
+        for (i = 0; i < k - 1; i++)
+                for (j = i + 1; j < k; j++)
+                        if (t2[j] < t2[i])
+                        {
+                                int aux = t2[j];
+                                t2[j] = t2[i]; //am sortat al doilea subtablou
+                                t2[i] = aux;
+                        }
+
+        for (i = 0; i < k; i++)
+                cout << t2[i] << " "; //am afisat al doilea subtablou
+
+}
+
+void interclasare(int* t1, int* t2, int n, int k) //functie pentru interclasarea elementelor din cele doua subtablouri
+{
+        int tab[MAX];
+        int i, j, t;
+        i = 0;
+        j = 0;
+        t = 0;
+        while (i < n && j < k)
+        {
+                if (t1[i] < t2[j])
+                {
+                        
+                        tab[t] = t1[i];
+                        i++;
+                        t++;
+
+                }
+                else
+                {
+                        
+                        tab[t] = t2[j];
+                        j++;
+                        t++;
+
+                }
+        }
+        if (i <= n)
+        {
+                for (int p = i; p < n; p++)
+                {
+                        tab[t] = t1[p];
+                        t++;
+                }
+        }
+        if (j <= k)
+        {
+                for (int p = j; p < k; p++)
+                {
+                        tab[t] = t2[p];
+                        t++;
+                }
+        }
+
+        cout << "\nTabloul format prin interclasare: "<<endl;
+        for (i = 0; i < t; i++)
+                cout << tab[i] << " ";
+}

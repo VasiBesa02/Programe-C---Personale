@@ -1,0 +1,73 @@
+// Lab3_Besa_Vasile_SeriaA
+/*Să se scrie un program C / C++, în care folosind câte o funcţie, se transferă ca
+parametru o variabilă de tip structură de date prin valoare şi respectiv prin adresă,
+folosind pointeri.În funcţia main() iniţializaţi câmpurile structurii cu date citite de la
+tastatură.În ambele funcţii afişaţi datele din structură folosind un mesaj adecvat.
+*/
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <malloc.h>
+
+
+struct Cantaret {
+        
+        char nume[10];
+        char prenume[10];
+        char melodie[50];
+        int an_lansare;
+        char album[50];
+};
+
+
+
+void citireDateCantaret(Cantaret*);
+void afisareDateCantaret(Cantaret*);
+
+
+
+int main()
+{
+        struct Cantaret* p;
+        if ((p = (Cantaret*)malloc(sizeof(Cantaret))))
+        {
+                printf("Scrieti datele despre cantaret: ");
+                citireDateCantaret(p);
+                afisareDateCantaret(p);
+                
+        }
+        else
+        {
+                printf("Alocare nereusita!");
+                return 1;
+        }
+}
+
+
+
+void citireDateCantaret( Cantaret* p)
+{
+        
+        printf("\nIntroduceti prenumele cantaretului: ");
+        scanf("%s", p->prenume);
+        printf("\nIntroduceti numele cantaretului : ");
+        scanf("%s", p->nume);
+        printf("\nIntroduceti melodia cantaretului: ");
+        scanf("%s", &p->melodie);
+        printf("\nIntroduceti anul in care a lansat melodia: ");
+        scanf("%d", &p->an_lansare);
+        printf("\nIntroduceti albumul din care face parte melodia: ");
+        scanf("%s", &p->album);
+}
+
+
+
+void afisareDateCantaret( Cantaret* p)
+{
+        printf("\nCantaretul: %s %s", p->nume, p->prenume);
+        printf("\nMelodia pe care o canta: %s", p->melodie);
+        printf("\nAnul in care a lansat melodia: %d", p->an_lansare);
+        printf("\nAlbumul din care face parte melodia: %s", p->album);
+        
+}

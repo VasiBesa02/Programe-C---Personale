@@ -1,0 +1,146 @@
+// Lab 4_Besa_Vasile_SeriaA
+/*Să se scrie o aplicaţie C / C++, care alocă dinamic memorie pentru stocarea
+elementelor a două matrici de "m" linii şi "n" coloane.Să se scrie o funcţie care
+calculează suma celor două matrici şi o funcţie pentru afişarea unei matrici.Să se
+afişeze matricile iniţiale şi matricea obţinută.
+*/
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+void cit_mat1(int*, int, int);
+void afis_mat1(int*, int, int);
+void cit_mat2(int*, int, int);
+void afis_mat2(int*, int, int);
+int suma_matrice(int, int*, int*, int, int);
+void afisare_matrice_suma(int*, int, int);
+
+int main(void) {
+        int* tab1, m, n, *tab2, *tab_suma;
+        
+        printf("\n Introduceti m si n, nr. linii si col.: ");
+        scanf("%d%d", &m, &n);
+        
+        if ((m <= 0) || (n <= 0)) {
+                printf("\nNumere invalide!\tMai incearcati!");
+                
+                return 1;
+        }// end if
+// alocare dinamica si test pointer
+        tab_suma = (int*)malloc(m * n * sizeof(int));
+
+        tab1 = (int*)malloc(m * n * sizeof(int));
+        
+        if (tab1 == 0) {
+                
+                printf("\n Eroare de alocare !");
+                return 1;
+        }
+        printf("\nIntroduceti elementele primei matrice %dx%d :", m, n);
+        
+        cit_mat1(tab1, m, n);
+        
+        printf("\n Prima matrice arata astfel:");
+        
+        afis_mat1(tab1, m, n);
+        
+
+        tab2 = (int*)malloc(m * n * sizeof(int));
+
+        if (tab2 == 0) {
+
+                printf("\n Eroare de alocare !");
+                return 1;
+        }
+        printf("\nIntroduceti elementele celei de-a doua matrice %dx%d :", m, n);
+
+        cit_mat2(tab2, m, n);
+
+        printf("\n A doua matrice arata astfel:");
+   afis_mat2(tab2, m, n);
+        
+        tab_suma=suma_matrice(tab1, tab2,tab_suma, m, n);
+        afisare_matrice_suma(tab_suma, m, n);//am afisat matricea suma
+        if (tab1) free(tab1);
+        if (tab2) free(tab2); //la final, am eliminat spatiul din matrici
+        if (tab_suma) free(tab_suma);
+        return 0;
+
+}
+void cit_mat1(int* tb, int l, int c) { //functie pentru citirea primei matrici
+        int i, j;
+        for (i = 0; i < l; i++) {
+                
+                printf("\nLinia %d: ", i);
+                for (j = 0; j < c; j++)
+                        
+                        scanf("%d", tb + i * c + j);
+        }
+}
+void afis_mat1(int* tb, int l, int c) { //functie de afisare a primei matrice
+        int i, j;
+        for (i = 0; i < l; i++) {
+                
+                printf("\n\t");
+                for (j = 0; j < c; j++)
+                        
+                        printf("%d ", *(tb + i * c + j));
+        }
+        
+        printf("\n");
+}
+
+
+
+void cit_mat2(int* tb, int l, int c) { //functie pentru citirea celei de-a doua matrici
+        int i, j;
+        for (i = 0; i < l; i++) {
+
+                printf("\nLinia %d: ", i);
+                for (j = 0; j < c; j++)
+
+                        scanf("%d", tb + i * c + j);
+        }
+}
+void afis_mat2(int* tb, int l, int c) { //functie de afisare a celei de-a doua matrice
+        int i, j;
+        for (i = 0; i < l; i++) {
+
+                printf("\n\t");
+                for (j = 0; j < c; j++)
+
+                        printf("%d ", *(tb + i * c + j));
+        }
+
+        printf("\n");
+}
+
+int suma_matrice(int tb1, int* tb2, int* tab_suma, int l, int c) //functie care calculeaza suma matricelor
+{
+        int i, j;
+        tab_suma = (int*)malloc(l * c * sizeof(int));
+        for (i = 0; i < l; i++)
+        {
+                for (j = 0; j < c; j++)
+                        *(tab_suma + i * c + j) = *(tb1 + i * c + j) + *(tb2 + i * c + j);
+
+        }
+        return tab_suma;
+
+}
+
+void afisare_matrice_suma(int *tab_suma, int l, int c) //functie care afiseaza matricea suma
+{
+        int i, j;
+        printf("\nMatricea suma este: ");
+        for (i = 0; i < l; i++) {
+
+                printf("\n\t");
+                for (j = 0; j < c; j++)
+
+                        printf("%d ", *(tab_suma + i * c + j));
+        }
+
+        printf("\n");
+
+}

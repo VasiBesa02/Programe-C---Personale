@@ -1,0 +1,56 @@
+ // Lab8_Besa_Vasile_SeriaA_Grupa2112
+/*Să se scrie o aplicaţie C/C++ care să modeleze obiectual un tablou unidimensional de numere
+reale. Creaţi două instanţe ale clasei şi afișați valorile unui al 3-lea tablou, obținute prin
+scăderea elementelelor corespunzătoare din primele 2 tablouri. Dacă tablourile au lungimi
+diferite, tabloul rezultat va avea lungimea tabloului cel mai scurt.*/
+
+#include<iostream>
+using namespace std;
+
+class Sir
+{
+	int n;
+public:
+	int x[100];
+	int getN()
+	{
+		return n;
+	}
+	void afisare()
+	{
+		for (int i = 0; i < n; i++)
+			cout << x[i] << " ";
+	}
+	void citire()
+	{
+		for (int i = 0; i < n; i++)
+			cin >> x[i];
+	}
+	void setN(int a)
+	{
+		this->n = a;
+	}
+}; 
+int main() 
+{ 
+	Sir s1, s2, s3;
+	int n,n1,n2; 
+	cout << "Dati numarul de elemente a primelor doua siruri: ";
+	cin >> n1>>n2;
+	if (n1 < n2)
+		n = n1;
+	else
+		n = n2;
+	s1.setN(n1);
+	s2.setN(n2);
+	s3.setN(n);
+	cout << "\nPrimul sir introdus este:  "; 
+	s1.citire();
+	cout << "\nAl doilea sir introdus:  ";
+	s2.citire(); 
+	
+	for (int i = 0; i < n; i++)
+		s3.x[i] = s1.x[i] - s2.x[i];
+	cout << "Al treilea sir este :";
+	s3.afisare();
+}
